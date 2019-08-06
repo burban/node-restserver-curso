@@ -2,6 +2,8 @@
  * 
  */
 const express = require('express');
+const bcrypt = require('bcrypt');
+
 const Usuario = require('../models/usuario'); // Importamos el modelo para almacenar en BBDD
 const app = express();
 
@@ -16,7 +18,7 @@ app.post('/usuario', function(req, res) {
     let usuario = new Usuario({
         nombre: body.nombre,
         email: body.email,
-        password: body.password,
+        password: bcrypt.hashSync(body.password, 10),
         role: body.role
     });
 
